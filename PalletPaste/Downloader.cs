@@ -25,6 +25,14 @@ namespace PalletPaste
             if (info.result == ModResult.FAILED)
             {
                 MelonLogger.Msg("Failed to get mod info");
+
+                FusionNotifier.Send(new FusionNotification()
+                {
+                    title = "Pallet Paster",
+                    message = $"Failed to fetch mod info for {displayName}",
+                    type = NotificationType.ERROR
+                });
+
                 return;
             }
 
