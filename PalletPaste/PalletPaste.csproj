@@ -556,8 +556,8 @@
 
 	<ItemGroup>
 		<Compile Include="Core.cs" />
+		<Compile Include="Downloader.cs" />
 		<Compile Include="ModIOManagerPublic.cs" />
-		<Compile Include="PasteListener.cs" />
 	</ItemGroup>
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

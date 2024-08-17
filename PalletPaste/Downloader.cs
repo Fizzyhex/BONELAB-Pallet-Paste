@@ -1,50 +1,13 @@
-﻿using LabFusion.Downloading;
-using LabFusion.Downloading.ModIO;
+﻿using LabFusion.Downloading.ModIO;
+using LabFusion.Downloading;
 using LabFusion.Utilities;
 using MelonLoader;
-using UnityEngine;
 
 namespace PalletPaste
 {
-    [RegisterTypeInIl2Cpp]
-    class PasteListener : MonoBehaviour
+    public static class Downloader
     {
-        // interop...
-        public PasteListener(IntPtr ptr) : base(ptr) { }
-
-        public delegate void ModIdCallback(int modId);
-
-        private bool isPasting;
-
-#pragma warning disable IDE0051 // Remove unused private members
-        void Update()
-#pragma warning restore IDE0051 // Remove unused private members
-        {
-            bool nowPasting = (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.V));
-
-            if (nowPasting != isPasting)
-            {
-                isPasting = nowPasting;
-                MelonLogger.Msg("paste detected");
-                OnPaste();
-            }
-        }
-
-        void OnPaste()
-        {
-            var clipboardContent = GUIUtility.systemCopyBuffer;
-            MelonLogger.Msg($"'{clipboardContent}' was pasted");
-
-            if (!IsModPageUrl(clipboardContent))
-            {
-                return;
-            }
-
-            MelonLogger.Msg($"Mod link detected: {clipboardContent.Trim()}");
-            DownloadFromModPageUrl(clipboardContent.Trim());
-        }
-
-        void DownloadFromModPageUrl(string modPageUrl)
+        public static void DownloadFromModPageUrl(string modPageUrl)
         {
             ModIOSettings.LoadToken(OnTokenLoaded);
 
@@ -57,7 +20,7 @@ namespace PalletPaste
             }
         }
 
-        void QueueDownload(ModCallbackInfo info, string displayName)
+        public static void QueueDownload(ModCallbackInfo info, string displayName)
         {
             if (info.result == ModResult.FAILED)
             {

@@ -1,24 +1,32 @@
-﻿using Il2Cpp;
-using Il2CppInterop.Runtime.Injection;
-using MelonLoader;
+﻿using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(PalletPaste.Core), "PalletPaste", "0.0.1", "Fizzyhex", null)]
+[assembly: MelonInfo(typeof(PalletPaste.Core), "PalletPaste", "1.0.0", "Fizzyhex", null)]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
 
 namespace PalletPaste
 {
     public class Core : MelonMod
     {
-        public override void OnInitializeMelon()
+        public override void OnUpdate()
         {
-            ClassInjector.RegisterTypeInIl2Cpp<PasteListener>();
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.V))
+            {
+                OnPaste();
+            }
         }
 
-        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        static void OnPaste()
         {
-            var gameObject = new GameObject("Pallet Paste Input Listener");
-            gameObject.AddComponent<PasteListener>();
+            var clipboardContent = GUIUtility.systemCopyBuffer;
+
+            if (!Downloader.IsModPageUrl(clipboardContent))
+            {
+                return;
+            }
+
+            MelonLogger.Msg($"Mod.io link detected: {clipboardContent.Trim()}");
+            Downloader.DownloadFromModPageUrl(clipboardContent.Trim());
         }
     }
 }
