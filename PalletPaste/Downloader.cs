@@ -28,7 +28,7 @@ namespace PalletPaste
 
                 FusionNotifier.Send(new FusionNotification()
                 {
-                    Title = "Pallet Paster",
+                    Title = "Pallet Paste",
                     Message = $"Failed to fetch mod info for {displayName}",
                     Type = NotificationType.ERROR
                 });
@@ -46,7 +46,7 @@ namespace PalletPaste
 
             FusionNotifier.Send(new FusionNotification()
             {
-                Title = "Pallet Paster",
+                Title = "Pallet Paste",
                 Message = $"{displayName} was added to the download queue!"
             });
 
