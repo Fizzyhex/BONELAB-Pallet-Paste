@@ -48,6 +48,12 @@ internal static class PalletPastePage
                             DrawSettings();
                         });
                 }
+                else
+                {
+                    _boneMenuEnabled.Value = true;
+                    _category.SaveToFile();
+                    DrawSettings();
+                }
             });
         }
     }
