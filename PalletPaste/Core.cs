@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿using LabFusion.Utilities;
+using MelonLoader;
 using UnityEngine;
 
 [assembly: MelonInfo(typeof(PalletPaste.Core), "PalletPaste", "1.0.2", "Fizzyhex", null)]
@@ -19,17 +20,32 @@ namespace PalletPaste
             }
         }
 
-        static void OnPaste()
+        internal static void OnPaste(bool verbose = false)
         {
-            var clipboardContent = GUIUtility.systemCopyBuffer;
+            var clipboardContent = GUIUtility.systemCopyBuffer.Trim();
 
             if (!Downloader.IsModPageUrl(clipboardContent))
             {
+                if (verbose)
+                {
+                    FusionNotifier.Send(new FusionNotification()
+                    {
+                        Title = "Pallet Paste",
+                        Message = $"No mod.io link detected on clipboard!",
+                        Type = NotificationType.ERROR
+                    });
+                }
+                
                 return;
             }
 
             MelonLogger.Msg($"Mod.io link detected: {clipboardContent.Trim()}");
             Downloader.DownloadFromModPageUrl(clipboardContent.Trim());
+        }
+
+        public override void OnInitializeMelon()
+        {
+            PalletPastePage.Create();
         }
     }
 }

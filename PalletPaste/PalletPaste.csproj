@@ -12,11 +12,15 @@
 		<AssemblyName>PalletPaste</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<DoNotCopyLocalIfInGac>true</DoNotCopyLocalIfInGac>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp">
 			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="BoneLib">
+		  <HintPath>$(BONELAB_DIR)\Mods\BoneLib.dll</HintPath>
 		</Reference>
 		<Reference Include="Il2CppFacepunch.Steamworks.Win64">
 			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppFacepunch.Steamworks.Win64.dll</HintPath>
@@ -141,9 +145,6 @@
 		<Reference Include="Il2CppSystem">
 			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
 		</Reference>
-		<Reference Include="Il2CppSystem.IO.Abstractions">
-			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppSystem.IO.Abstractions.dll</HintPath>
-		</Reference>
 		<Reference Include="Il2CppSystem.IO.Compression">
 			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppSystem.IO.Compression.dll</HintPath>
 		</Reference>
@@ -188,9 +189,6 @@
 		</Reference>
 		<Reference Include="Il2CppURPUnsafe">
 			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppURPUnsafe.dll</HintPath>
-		</Reference>
-		<Reference Include="Il2CppWave.OpenXR">
-			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2CppWave.OpenXR.dll</HintPath>
 		</Reference>
 		<Reference Include="Il2Cppwebsocket-sharp">
 			<HintPath>$(BONELAB_DIR)\MelonLoader\Il2CppAssemblies\Il2Cppwebsocket-sharp.dll</HintPath>
@@ -558,6 +556,8 @@
 		<Compile Include="Core.cs" />
 		<Compile Include="Downloader.cs" />
 		<Compile Include="ModIOManagerPublic.cs" />
+		<Compile Include="PalletPastePage.cs" />
+		<Compile Include="Preferences.cs" />
 	</ItemGroup>
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
