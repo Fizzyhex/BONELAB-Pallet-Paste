@@ -10,6 +10,7 @@ namespace PalletPaste
         public static void DownloadFromModPageUrl(string modPageUrl)
         {
             ModIOSettings.LoadToken(OnTokenLoaded);
+            return;
 
             void OnTokenLoaded(string token)
             {
@@ -20,7 +21,7 @@ namespace PalletPaste
             }
         }
 
-        public static void QueueDownload(ModCallbackInfo info, string displayName)
+        private static void QueueDownload(ModCallbackInfo info, string displayName)
         {
             if (info.result == ModResult.FAILED)
             {
@@ -50,24 +51,18 @@ namespace PalletPaste
                 Message = $"{displayName} was added to the download queue!"
             });
 
+            ModIODownloader.EnqueueDownload(transaction);
+            return;
+
             static void OnDownloadComplete(DownloadCallbackInfo transaction)
             {
-                if (transaction.result == ModResult.FAILED)
-                {
-                    MelonLogger.Msg("Download failed!");
-                }
-                else
-                {
-                    MelonLogger.Msg("Download succeeded!");
-                }
+                MelonLogger.Msg(transaction.result == ModResult.FAILED ? "Download failed!" : "Download succeeded!");
             }
-
-            ModIODownloader.EnqueueDownload(transaction);
         }
 
         public static bool IsModPageUrl(string text)
         {
-            string withoutHttp = text.Replace("http://", "").Replace("https://", "");
+            var withoutHttp = text.Replace("http://", "").Replace("https://", "");
             return withoutHttp.Contains("bonelab/m/") && withoutHttp.StartsWith("mod.io");
         }
     }

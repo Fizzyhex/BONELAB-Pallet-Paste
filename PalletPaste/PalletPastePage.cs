@@ -16,9 +16,7 @@ internal static class PalletPastePage
         _boneMenuEnabled = _category.CreateEntry("BoneMenuEnabled", true, "BoneMenu Enabled");
 
         if (!_boneMenuEnabled.Value)
-        {
             return;
-        }
         
         var page = Page.Root.CreatePage("Pallet Paste", Color.cyan);
         page.CreateFunction("Paste!", Color.cyan, () => Core.OnPaste(verbose: true));

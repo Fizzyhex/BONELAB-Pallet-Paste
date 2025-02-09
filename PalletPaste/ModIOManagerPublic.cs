@@ -10,10 +10,9 @@ namespace PalletPaste
         public static void GetModFromSlug(string modSlug, ModCallback modCallback)
         {
             var url = $"{ModIOSettings.GameApiPath}@{modSlug}";
-
             MelonLogger.Msg($"Downloading mod file from '{url}'...");
-
             ModIOSettings.LoadToken(OnTokenLoaded);
+            return;
 
             void OnTokenLoaded(string token)
             {
@@ -21,15 +20,14 @@ namespace PalletPaste
                 if (string.IsNullOrWhiteSpace(token))
                 {
                     modCallback?.Invoke(ModCallbackInfo.FailedCallback);
-
                     return;
                 }
 
-                System.Reflection.MethodInfo CoGetMod = typeof(ModIOManager).GetMethod(
+                var coGetMod = typeof(ModIOManager).GetMethod(
                     "CoGetMod",
                     System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
                 MelonCoroutines.Start(
-                    (System.Collections.IEnumerator)CoGetMod.Invoke(null, new object[] { url, token, modCallback }));
+                    (System.Collections.IEnumerator)coGetMod.Invoke(null, new object[] { url, token, modCallback }));
             }
         }
     }
