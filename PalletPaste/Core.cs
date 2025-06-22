@@ -1,5 +1,8 @@
-﻿using LabFusion.Utilities;
+﻿using BoneLib.Notifications;
+using Il2CppSLZ.Marrow.Warehouse;
+using LabFusion.Utilities;
 using MelonLoader;
+using PalletPaste.SpawnGun;
 using UnityEngine;
 
 [assembly: MelonInfo(typeof(PalletPaste.Core), "PalletPaste", "2.0.0", "Fizzyhex", null)]
@@ -20,32 +23,43 @@ namespace PalletPaste
             }
         }
 
-        internal static void OnPaste(bool verbose = false)
+        internal static void OnPaste()
         {
-            var clipboardContent = GUIUtility.systemCopyBuffer.Trim();
-
-            if (!Downloader.IsModPageUrl(clipboardContent))
+            var clipboardLines = GUIUtility.systemCopyBuffer.Split("\n");
+            var doNotify = clipboardLines.Length == 1;
+            var pastesAccepted = false;
+            
+            foreach (var line in clipboardLines)
             {
-                if (verbose)
-                {
-                    FusionNotifier.Send(new FusionNotification()
-                    {
-                        Title = "Pallet Paste",
-                        Message = $"No mod.io link detected on clipboard!",
-                        Type = NotificationType.ERROR
-                    });
-                }
+                var safeText = line.Trim();
                 
-                return;
+                if (DownloadUtils.IsModPageUrl(safeText))
+                {
+                    MelonLogger.Msg($"Mod.io link detected: {safeText}");
+                    DownloadUtils.DownloadFromModPageUrl(safeText, notify: doNotify);
+                    pastesAccepted = true;
+                }
+                else if (SpawnGunUtils.GetSpawnGun(out var spawnGun))
+                {
+                    SpawnGunUtils.CopyBarcodeToSpawnGun(spawnGun, new Barcode(safeText), notify: true);
+                    break;
+                }
             }
 
-            MelonLogger.Msg($"Mod.io link detected: {clipboardContent.Trim()}");
-            Downloader.DownloadFromModPageUrl(clipboardContent.Trim());
+            if (pastesAccepted && !doNotify)
+            {
+                Notifier.Send(new Notification
+                {
+                    Title = "Pallet Paste",
+                    Message = $"Multi-line paste started!",
+                    Type = NotificationType.Information,
+                });
+            }
         }
 
         public override void OnInitializeMelon()
         {
-            PalletPastePage.Create();
+            Root.Create();
         }
     }
 }

@@ -554,10 +554,12 @@
 
 	<ItemGroup>
 		<Compile Include="Core.cs" />
-		<Compile Include="Downloader.cs" />
-		<Compile Include="ModIOManagerPublic.cs" />
-		<Compile Include="PalletPastePage.cs" />
+		<Compile Include="Downloading\DownloadUtils.cs" />
+		<Compile Include="Downloading\ModIOManagerPublic.cs" />
+		<Compile Include="Menu\PasteHistory.cs" />
+		<Compile Include="Menu\Root.cs" />
 		<Compile Include="Preferences.cs" />
+		<Compile Include="SpawnGun\SpawnGunUtils.cs" />
 	</ItemGroup>
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
