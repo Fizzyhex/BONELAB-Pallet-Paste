@@ -74,8 +74,8 @@ public static class PasteHistory
             else if (crate.GetIl2CppType() == Il2CppType.Of<LevelCrate>())
             {
                 var context = NetworkInfo.IsClient
-                    ? "Press YES to send a level request to the lobby host."
-                    : "Press YES to load the selected level";
+                    ? "Click YES to send a level request to the lobby host."
+                    : "Click YES to load the selected level";
 
                 Menu.DisplayDialog($"Swap maps to {crate.Title}?", context, confirmAction:
                     () =>
@@ -98,7 +98,7 @@ public static class PasteHistory
             }
             else
             {
-                Menu.DisplayDialog($"Swap avatar to {crate.Title}?", "Press YES to swap your current avatar.",
+                Menu.DisplayDialog($"Swap avatar to {crate.Title}?", "Click YES to swap your current avatar.",
                     confirmAction:
                     () => { BoneLib.Player.RigManager.SwapAvatarCrate(crate.Barcode); });
             }

@@ -208,6 +208,9 @@
 		<Reference Include="LabFusion">
 		  <HintPath>$(BONELAB_DIR)\Mods\LabFusion.dll</HintPath>
 		</Reference>
+        <Reference Include="BonelabSupport">
+          <HintPath>..\..\BONELAB-Fusion\LabFusion\SupportModules\BonelabSupport.dll</HintPath>
+        </Reference>
 		<Reference Include="Newtonsoft.Json">
 		  <HintPath>$(BONELAB_DIR)\MelonLoader\Dependencies\Il2CppAssemblyGenerator\Cpp2IL\cpp2il_out\Newtonsoft.Json.dll</HintPath>
 		</Reference>

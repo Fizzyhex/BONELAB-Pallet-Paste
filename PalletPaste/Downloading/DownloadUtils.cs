@@ -62,13 +62,13 @@ namespace PalletPaste
 
             static void OnDownloadComplete(DownloadCallbackInfo transaction)
             {
-                PasteHistory.Append(new PasteHistory.Paste(transaction.pallet));
+                PasteHistory.Append(new PasteHistory.Paste(transaction.Pallet));
                 
-                MelonLogger.Msg(transaction.result == ModResult.FAILED ? "Download failed!" : "Download succeeded!");
-                MelonLogger.Msg($"Pallet: {transaction.pallet.Title} ({transaction.pallet.Barcode.ID}) by @{transaction.pallet.Author}");
+                MelonLogger.Msg(transaction.Result == ModResult.FAILED ? "Download failed!" : "Download succeeded!");
+                MelonLogger.Msg($"Pallet: {transaction.Pallet.Title} ({transaction.Pallet.Barcode.ID}) by @{transaction.Pallet.Author}");
                 MelonLogger.Msg("Crates:");
 
-                foreach (var crate in transaction.pallet.Crates)
+                foreach (var crate in transaction.Pallet.Crates)
                 {
                     MelonLogger.Msg($"- {crate.Title} ({crate.Barcode.ID})");
                     crate.Tags.Add("<color=#07f5f5>Pallet Paste</color>");
