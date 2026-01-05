@@ -567,5 +567,6 @@
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(BONELAB_DIR)\Mods&quot;" />
+		<Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(SolutionPath)\..\Thunderstore\PalletPaste&quot;" />
 	</Target>
 </Project>
