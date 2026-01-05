@@ -362,4 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 Thunderstore/PalletPaste/PalletPaste.dll
-Thunderstore/PalletPaste.zip
+Thunderstore/*.zip
+Thunderstore/*/*.zip
