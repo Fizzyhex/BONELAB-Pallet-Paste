@@ -1,3 +1,5 @@
+[Download on Thunderstore](https://thunderstore.io/c/bonelab/p/Fizzyhex/PalletPaste/)
+
 Copy Mod.io links to your clipboard and load them into the game at runtime.
 
 **This mod is dependant Fusion's Mod.io downloading system - you need it installed as well!**
